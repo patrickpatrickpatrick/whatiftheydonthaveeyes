@@ -8,6 +8,14 @@
   <script src="https://unpkg.com/simplebar@latest/dist/simplebar.min.js"></script>
   <script src="/socket.io/socket.io.js"></script>
   <script>
+    function uuidv4() {
+      return 'xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx'.replace(/[xy]/g, function(c) {
+        var r = Math.random() * 16 | 0, v = c == 'x' ? r : (r & 0x3 | 0x8);
+        return v.toString(16);
+      });
+    }
+
+    var uuid = uuidv4();
     var socket = io();
     var el;
 
@@ -26,6 +34,11 @@
           <br>
           <span class="chat-message-content">
             ${msg.content}
+            ${msg.attachments.map(attachment => {
+              return `
+                <img src=${attachment} />
+              `
+            })}
           </span>
         </div>
       `;
@@ -39,15 +52,15 @@
     });
 
     socket.on('message_history_request_response', function(msgs) {
-      msgs.messages.forEach((msg) => {
-        const el = createMessage(msg);
-        document.querySelector('.dialog-body-content').prepend(el);
-      });
-      document.querySelector('.dialog-body-content').scrollTop = '0px';
-      document.querySelector('.dialog-body-content').prepend(document.querySelector('.chat-message-requester'));
+      if (msgs.uuid === uuid) {
+        msgs.messages.forEach((msg) => {
+          const el = createMessage(msg);
+          document.querySelector('.dialog-body-content').prepend(el);
+        });
+        document.querySelector('.dialog-body-content').scrollTop = '0px';
+        document.querySelector('.dialog-body-content').prepend(document.querySelector('.chat-message-requester'));
+      }
     });
-
-    new SimpleBar(document.querySelector('.chat-message-requester'), { autoHide: false });
   </script>
   <link rel="stylesheet" href="/style.css" />
 </head>
@@ -68,7 +81,7 @@
       </button>
     </div>
   </div>
-  <div class="dialog-subheader">
+  <div class="dialog-subheader dialog-subheader-top">
     <span class="dialog-subheader-fake-button">
       File
     </span>
@@ -91,7 +104,7 @@
       Directory
     </span>
   </div>
-  <div class="dialog-subheader">
+  <div class="dialog-subheader dialog-subheader-links">
     <div class="dialog-subheader">
       <button class="dialog-button">
         Mary
@@ -126,10 +139,13 @@
     </div>
   </div>
   <script type="text/javascript">
-    socket.emit("message_history_request");
+    socket.emit("message_history_request", { uuid: uuid });
     document.querySelector('.chat-message-requester').addEventListener('click', function () {
         var topMsg = document.querySelector('.chat-message');
-        socket.emit("message_history_request", topMsg.dataset.id);
+        socket.emit("message_history_request", {
+          last_msg_id: topMsg.dataset.id,
+          uuid: uuid
+        });
       }
     );
   </script>

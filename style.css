@@ -4,8 +4,28 @@
       url("/fonts/w95fa.woff2") format("woff2");
 }
 
-.simplebar-scrollbar::before {
-  background-color: green;
+/* width */
+::-webkit-scrollbar {
+  width: 20px;
+}
+
+/* Track */
+::-webkit-scrollbar-track {
+  background: rgb(222, 222, 222);
+}
+
+/* Handle */
+::-webkit-scrollbar-thumb {
+  background: rgb(192, 192, 192);
+  border-top: 2px white solid;
+  border-left: 2px white solid;
+  border-right: 2px grey solid;
+  border-bottom: 2px grey solid;
+}
+
+/* Handle on hover */
+::-webkit-scrollbar-thumb:hover {
+  background: #555;
 }
 
 .dialog {
@@ -88,16 +108,28 @@
   margin-right: 30px;
 }
 
+.dialog-subheader-top {
+  border-bottom: 1px solid grey;
+}
+
+.dialog-subheader-links {
+  padding-top: 10px;
+  padding-bottom: 10px;
+  border-top: 1px solid white;
+  border-bottom: 1px solid grey;
+}
+
 .dialog-subheader-fake-form {
+  border-top: 1px solid white;
   align-items: center;
   display: flex;
   padding: 20px;
-  padding-top: 30px;
+  padding-top: 10px;
   width: 100%;
 }
 
 .dialog-subheader-fake-input-label {
-  text-shadow: 1px 1px black;
+  text-shadow: 1px 1px grey;
 }
 
 .dialog-subheader-fake-input {

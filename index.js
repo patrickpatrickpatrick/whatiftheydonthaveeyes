@@ -31,4 +31,4 @@ client.on('ready', () => {
 	console.log(`Logged in as ${client.user.tag}`)
 });
 
-client.login('ODA4NDI0Mjc0MDQ5NDk5MTU2.YCGVxg.cET8NOZzRpnWFyVOGghK9GEw9Jo');
+client.login(process.env.DISCORD_KEY);

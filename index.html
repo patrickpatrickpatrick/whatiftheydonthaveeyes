@@ -1,0 +1,224 @@
+<!DOCTYPE html>
+<head>
+  <title>Pusher Test</title>
+  <script src="/socket.io/socket.io.js"></script>
+  <script>
+    var socket = io();
+    var el;
+
+    socket.on('time', function(timeString) {
+      el = document.querySelector('.dialog-subheader-fake-input')
+      el.innerHTML = 'Server time: ' + timeString;
+    });
+  </script>
+  <style type="text/css">
+    @font-face {
+        font-family: 'Windows';
+        src: url("/fonts/w95fa.woff") format("woff"),
+          url("/fonts/w95fa.woff2") format("woff2");
+    }
+
+    .dialog {
+      border-top: 2px solid #fff;
+      border-left: 2px solid #fff;
+      border-bottom: 2px solid grey;
+      border-right: 2px solid grey;
+      font-family: 'Windows', sans-serif;
+      height: 100vh;
+      background-color: rgb(192, 192, 192);
+      outline: 10px blueviolet solid;
+    }
+
+    .dialog-body {
+
+    }
+
+    .dialog-header {
+      align-items: center;
+      background: linear-gradient(90deg, rgba(2,0,36,1) 0%, rgba(32,89,236,1) 0%, rgba(0,212,255,1) 100%);
+      color: #fff;
+      display: flex;
+      font-size: 20px;
+      height: 35px;
+      padding: 5px 20px;
+    }
+
+    .dialog-header {
+      align-items: center;
+      background: linear-gradient(90deg, rgba(2,0,36,1) 0%, rgba(32,89,236,1) 0%, rgba(0,212,255,1) 100%);
+      color: #fff;
+      display: flex;
+      font-family: 'Windows', sans-serif;
+      font-size: 18px;
+      height: 30px;
+      padding: 5px 20px;
+      position: relative;
+    }
+
+    .dialog-subheader {
+      display: flex;
+      flex-direction: row;
+      font-size: 18px;
+    }
+
+    .dialog-subheader-fake-button {
+      padding: 10px;
+
+    }
+
+    .dialog-button {
+      background-color: rgb(192, 192, 192);
+      border-radius: 2px;
+      border-width: 2px;
+      border-color: black;
+      border-bottom: 3px solid grey;
+      border-right: 3px solid grey;
+      box-shadow: 3px 3px;
+      font-family: 'Windows', sans-serif;
+      font-size: 18px;
+      padding: 10px 20px;
+    }
+
+    .dialog-button-header {
+      padding: 5px 7px;
+      height: 30px;
+      width: 30px;
+      box-shadow: 0px 0px;
+      position: relative;
+    }
+
+    .dialog-subheader .dialog-button:nth-of-type(1) {
+      margin-left: 10px;
+    }
+
+    .dialog-subheader .dialog-button:nth-of-type(1) {
+      margin-left: 10px;
+    }
+
+    .dialog-subheader .dialog-subheader:nth-of-type(1) {
+      margin-right: 30px;
+    }
+
+    .dialog-subheader-fake-form {
+      align-items: center;
+      display: flex;
+      padding: 20px;
+      padding-top: 30px;
+      width: 100%;
+    }
+
+    .dialog-subheader-fake-input-label {
+      text-shadow: 1px 1px black;
+    }
+
+    .dialog-subheader-fake-input {
+      padding: 10px;
+      background: white;
+      border: 2px solid black;
+      margin-left: 10px;
+      flex-grow: 8;
+    }
+
+    .dialog-header-button-container {
+      display: flex;
+      position: absolute;
+      right: 10px;
+    }
+
+    .dialog-button-header-text {
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      font-size: 30px;
+      padding-bottom: 5px;
+    }
+
+    .dialog-button-header-text-max {
+      font-size: 45px;
+      padding-bottom: 8px;
+    }
+
+    .dialog-body-content {
+      width: calc(100% - 40px);
+      height: 150px;
+      margin: 0px 20px 20px 20px;
+/*      background: white;
+*/      border: 2px solid black;
+      background: linear-gradient(90deg, rgba(255,0,0,1) 0%, rgba(255,154,0,1) 10%, rgba(208,222,33,1) 20%, rgba(79,220,74,1) 30%, rgba(63,218,216,1) 40%, rgba(47,201,226,1) 50%, rgba(28,127,238,1) 60%, rgba(95,21,242,1) 70%, rgba(186,12,248,1) 80%, rgba(251,7,217,1) 90%, rgba(255,0,0,1) 100%);
+
+    }
+
+  </style>
+</head>
+<body class="dialog">
+  <div class="dialog-header">
+    <span class="dialog-header-text">
+      What if They Don't Have Eyes?
+    </span>
+    <div class="dialog-header-button-container">
+      <button class="dialog-button dialog-button-header">
+        <span class="dialog-button-header-text">_</span>
+      </button>
+      <button class="dialog-button dialog-button-header">
+        <span class="dialog-button-header-text dialog-button-header-text-max">□</span>
+      </button>
+      <button class="dialog-button dialog-button-header">
+        <span class="dialog-button-header-text">×</span>
+      </button>
+    </div>
+  </div>
+  <div class="dialog-subheader">
+    <span class="dialog-subheader-fake-button">
+      File
+    </span>
+    <span class="dialog-subheader-fake-button">
+      Edit
+    </span>
+    <span class="dialog-subheader-fake-button">
+      View
+    </span>
+    <span class="dialog-subheader-fake-button">
+      Go
+    </span>
+    <span class="dialog-subheader-fake-button">
+      Bookmarks
+    </span>
+    <span class="dialog-subheader-fake-button">
+      Options
+    </span>
+    <span class="dialog-subheader-fake-button">
+      Directory
+    </span>
+  </div>
+  <div class="dialog-subheader">
+    <div class="dialog-subheader">
+      <button class="dialog-button">
+        Mary
+      </button>
+      <button class="dialog-button">
+        Steven
+      </button>
+    </div>
+    <div class="dialog-subheader">
+      <button class="dialog-button">
+        SW11NDOWS
+      </button>
+    </div>
+  </div>
+  <div class="dialog-subheader">
+    <div class="dialog-subheader-fake-form">
+      <span class="dialog-subheader-fake-input-label">
+        Location:
+      </span>
+      <span class="dialog-subheader-fake-input">
+        Fraser Court, 50 Surrey Ln, Battersea, London SW11
+      </span>
+    </div>
+  </div>
+  <div class="dialog-body">
+    <div class="dialog-body-content">
+
+    </div>
+  </div>
+</body>

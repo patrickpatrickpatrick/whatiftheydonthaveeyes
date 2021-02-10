@@ -6,7 +6,9 @@ const PORT = process.env.PORT || 3000;
 const INDEX = '/index.html';
 
 const server = express()
-  .use((req, res) => res.sendFile(INDEX, { root: __dirname }))
+  .use((req, res) => {
+	return res.sendFile(req.originalUrl, { root: __dirname })
+  })
   .listen(PORT, () => console.log(`Listening on ${PORT}`));
 
 const io = socketIO(server);
@@ -24,7 +26,8 @@ client.on('message', msg => {
 	if (msg.content === 'ping') {
 		msg.reply('Pong!');
 	}
-	io.emit('time', msg.content);
+
+	io.emit('message', { content: msg.content, user: msg.author.username });
 });
 
 client.on('ready', () => {

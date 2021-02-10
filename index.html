@@ -6,9 +6,22 @@
     var socket = io();
     var el;
 
-    socket.on('time', function(timeString) {
-      el = document.querySelector('.dialog-subheader-fake-input')
-      el.innerHTML = 'Server time: ' + timeString;
+    socket.on('message', function(msg) {
+      var el = document.createElement('DIV');
+      el.className = 'chat-message-container';
+      el.innerHTML = `
+        <div class="chat-message">
+          <span class="chat-message-user">
+            ${msg.user}
+          </span>
+          <br>
+          <br>
+          <span class="chat-message-content">
+            ${msg.content}
+          </span>
+        </div>
+      `;
+      document.querySelector('.dialog-body-content').appendChild(el);
     });
   </script>
   <style type="text/css">
@@ -63,7 +76,6 @@
 
     .dialog-subheader-fake-button {
       padding: 10px;
-
     }
 
     .dialog-button {
@@ -140,15 +152,59 @@
     }
 
     .dialog-body-content {
+      overflow-y: scroll;
       width: calc(100% - 40px);
-      height: 150px;
+      height: calc(100vh - 240px);
       margin: 0px 20px 20px 20px;
-/*      background: white;
-*/      border: 2px solid black;
+      border: 2px solid black;
       background: linear-gradient(90deg, rgba(255,0,0,1) 0%, rgba(255,154,0,1) 10%, rgba(208,222,33,1) 20%, rgba(79,220,74,1) 30%, rgba(63,218,216,1) 40%, rgba(47,201,226,1) 50%, rgba(28,127,238,1) 60%, rgba(95,21,242,1) 70%, rgba(186,12,248,1) 80%, rgba(251,7,217,1) 90%, rgba(255,0,0,1) 100%);
+    }
+
+    .chat-message {
+      width: 50%;
+      height: fit-content;
+      padding: 20px;
+      background-color: white;
+      margin-top: 10px;
+      margin-left: 30px;
+      border-radius: 2px;
+      border: 2px grey solid;
+    }
+
+    .chat-message-container:nth-of-type(2n) {
+      flex-direction: row-reverse;
+      margin-right: 30px;
+    }
+
+    .chat-message-container:nth-of-type(2n) .chat-message {
+      background: darkgreen;
+      color: white;
+      margin-left: 0px;
+    }
+
+    .chat-message-user {
+      font-size: 20px;
+    }
+
+    .chat-message-content {
+      padding-top: 20px;
+      font-size: 18px;
+    }
+
+    .chat-message-container {
+      display: flex;
+      flex-direction: row;
+    }
+
+    .chat-container {
+      display: flex;
+      flex-direction: row;
 
     }
 
+    .chat-message-break {
+      width: calc(50% - 73px);
+    }
   </style>
 </head>
 <body class="dialog">
@@ -218,7 +274,79 @@
   </div>
   <div class="dialog-body">
     <div class="dialog-body-content">
+      <div class="chat-message-container">
+        <div class="chat-message">
+          <span class="chat-message-user">
+            Steven
+          </span>
+          <br>
+          <br>
+          <span class="chat-message-content">
+            Content
+          </span>
+        </div>
+      </div>
+      <div class="chat-message-container">
+        <div class="chat-message">
+          <span class="chat-message-user">
+            Steven
+          </span>
+          <br>
+          <br>
+          <span class="chat-message-content">
+            Content
+          </span>
+        </div>
+      </div>
+      <div class="chat-message-container">
+        <div class="chat-message">
+          <span class="chat-message-user">
+            Steven
+          </span>
+          <br>
+          <br>
+          <span class="chat-message-content">
+            Content
+          </span>
+        </div>
+      </div>
+      <div class="chat-message-container">
+        <div class="chat-message">
+          <span class="chat-message-user">
+            Steven
+          </span>
+          <br>
+          <br>
+          <span class="chat-message-content">
+            Content
+          </span>
+        </div>
+      </div>
+      <div class="chat-message-container">
+        <div class="chat-message">
+          <span class="chat-message-user">
+            Steven
+          </span>
+          <br>
+          <br>
+          <span class="chat-message-content">
+            Content
+          </span>
+        </div>
+      </div>
 
+      <div class="chat-message-container">
+        <div class="chat-message">
+          <span class="chat-message-user">
+            Steven
+          </span>
+          <br>
+          <br>
+          <span class="chat-message-content">
+            Content
+          </span>
+        </div>
+      </div>
     </div>
   </div>
 </body>

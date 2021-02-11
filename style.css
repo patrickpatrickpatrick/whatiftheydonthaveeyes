@@ -7,6 +7,10 @@
 html { height:100%; background-color: purple; }
 body { position:absolute; top:0; bottom:0; right:0; left:0; }
 
+.simplebar-track.simplebar-vertical .simplebar-scrollbar:before {
+  top: 0;
+  bottom: 0;
+}
 
 .simplebar-scrollbar::before {
   width: 18px;
@@ -171,8 +175,12 @@ body { position:absolute; top:0; bottom:0; right:0; left:0; }
 
 .dialog-body {
   overflow-y: scroll;
-  border: 2px solid black;
+  border-top: 2px white solid;
+  border-left: 2px white solid;
+  border-right: 2px grey solid;
+  border-bottom: 2px grey solid;
   background: linear-gradient(90deg, rgba(255,0,0,1) 0%, rgba(255,154,0,1) 10%, rgba(208,222,33,1) 20%, rgba(79,220,74,1) 30%, rgba(63,218,216,1) 40%, rgba(47,201,226,1) 50%, rgba(28,127,238,1) 60%, rgba(95,21,242,1) 70%, rgba(186,12,248,1) 80%, rgba(251,7,217,1) 90%, rgba(255,0,0,1) 100%);
+  margin: auto;
   width: calc(100% - 40px);
 }
 

@@ -55,7 +55,7 @@
               (msg.content.search('youtube') > 1 ? `
                 <iframe width="100%" height="315" src="https://www.youtube.com/embed/${getYTID(msg.content)}" frameborder="0" allow="autoplay; encrypted-media" allowfullscreen></iframe>
               ` : (msg.content.search('vimeo') > 1 ? `
-              <iframe title="vimeo-player" src="https://player.vimeo.com/video/${getVIMEOID(msg.content)}" width="100%" height="360" frameborder="0" allowfullscreen></iframe>
+              <iframe title="vimeo-player" src="https://player.vimeo.com/video/${getVIMEOID(msg.content)}" width="100%" height="200" frameborder="0" allowfullscreen></iframe>
               ` : msg.content))
             }
             ${msg.attachments.map(attachment => {
@@ -79,8 +79,6 @@
       if (window.msgs.length !== 0) {
         const displayMsgs = window.msgs.slice(-5);
 
-        console.log(displayMsgs)
-
         window.msgs = window.msgs.slice(0, -5);
 
         if (!scrolledToTop) {
@@ -102,6 +100,10 @@
       }
     }
 
+    socket.on('time', function (count) {
+      document.querySelector('.dialog-header-count').innerHTML = `| ${count} users online now...`
+    })
+
     socket.on('message_history_request_response', function(msgs) {
       if (msgs.uuid === uuid) {
         window.msgs = msgs.messages.reverse();
@@ -119,7 +121,7 @@
 <div class="dialog">
   <div class="dialog-header">
     <span class="dialog-header-text">
-      What if They Don't Have Eyes?
+      What if They Don't Have Eyes? <span class="dialog-header-count"></span>
     </span>
     <div class="dialog-header-button-container">
       <button class="dialog-button dialog-button-header">

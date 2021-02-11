@@ -88,14 +88,14 @@
             const el = createMessage(msg);
             document.querySelector('.dialog-body-content').appendChild(el);
           });
-          document.querySelector('.dialog-body-content').scrollTop = document.querySelector('.dialog-body-content').scrollHeight;
+          scrollEl.scrollTop = document.querySelector('.dialog-body-content').scrollHeight;
         } else {
           var previousHeight = document.querySelector('.dialog-body-content').scrollHeight;
           displayMsgs.reverse().forEach((msg) => {
             const el = createMessage(msg);
             document.querySelector('.dialog-body-content').prepend(el);
           });
-          document.querySelector('.dialog-body-content').scrollTop = document.querySelector('.dialog-body-content').scrollHeight - previousHeight;
+          scrollEl.scrollTop = document.querySelector('.dialog-body-content').scrollHeight - previousHeight;
         }
       } else {
         socket.emit("message_history_request", { uuid: uuid, last_msg_id: document.querySelector('.chat-message').dataset.id });
@@ -189,8 +189,12 @@
   </div>
   <script type="text/javascript">
     socket.emit("message_history_request", { uuid: uuid });
-    document.querySelector('.dialog-body-content').addEventListener('scroll', function(e) {
-          if (e.target.scrollTop === 0) {
+
+    var scroll = new SimpleBar(document.querySelector('.dialog-body'), { autoHide: false });
+    var scrollEl = scroll.getScrollElement();
+
+    scrollEl.addEventListener('scroll', function(e) {
+          if (scrollEl.scrollTop === 0) {
             displayHistorySensibly(true);
           }
       }
@@ -201,9 +205,6 @@
       document.querySelector('.dialog-body-content').style.height = `${document.querySelector('.dialog').offsetHeight - 240 - (window.mobileCheck ? 30 : 0 )}px`
       document.querySelector('.dialog-body').style.height = `${document.querySelector('.dialog').offsetHeight - 240 - (window.mobileCheck ? 30 : 0 )}px`
     });
-
-    new SimpleBar(document.querySelector('.dialog-body'), { autoHide: false });
-
   </script>
 </div>
 </body>

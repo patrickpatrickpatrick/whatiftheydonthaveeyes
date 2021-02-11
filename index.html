@@ -3,6 +3,8 @@
   <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=yes" />
   <title>What if They Don't Have Eyes?</title>
   <script src="/socket.io/socket.io.js"></script>
+  <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
   <link
     rel="stylesheet"
     href="https://unpkg.com/simplebar@latest/dist/simplebar.css"
@@ -30,7 +32,8 @@
     function createMessage(msg) {
       var el = document.createElement('DIV');
       var date = new Date(msg.datestamp);
-      var user = 'patrickpatrickpatrickpatrick';
+      var user = '1977-084A';
+      // var user = 'patrickpatrickpatrickpatrick';
 
 
       function getYTID (link) {
@@ -41,7 +44,12 @@
 
       function getVIMEOID (link) {
         var url = new URL(link);
-        return url.pathname.slice(1);
+        return url.pathname.split('/').slice(1)[0];
+      }
+
+      function getTenorID (link) {
+        var url = new URL(link);
+        return url.pathname.split('/')[2].split('-').slice(-1)[0];
       }
 
       el.className = `chat-message-container ${ user === msg.user ? 'chat-message-container-user-primary' : '' }`;
@@ -56,7 +64,9 @@
                 <iframe width="100%" height="315" src="https://www.youtube.com/embed/${getYTID(msg.content)}" frameborder="0" allow="autoplay; encrypted-media" allowfullscreen></iframe>
               ` : (msg.content.search('vimeo') > 1 ? `
               <iframe title="vimeo-player" src="https://player.vimeo.com/video/${getVIMEOID(msg.content)}" width="100%" height="200" frameborder="0" allowfullscreen></iframe>
-              ` : msg.content))
+              ` : (msg.content.search('tenor') > 1 ? `
+                  <div class="tenor-gif-embed" data-postid="${getTenorID(msg.content)}" data-share-method="host" data-width="100%" data-aspect-ratio="1.9227799227799227"><a href="https://tenor.com/view/love-you-awww-cute-gif-${getTenorID(msg.content)}">Love You GIF</a> from <a href="https://tenor.com/search/love-gifs">Love GIFs</a></div>\<script type="text/javascript" async src="https://tenor.com/embed.js">\<\/script\>`
+               : msg.content)))
             }
             ${msg.attachments.map(attachment => {
               return `
@@ -101,7 +111,9 @@
     }
 
     socket.on('time', function (count) {
-      document.querySelector('.dialog-header-count').innerHTML = `| ${count} users online now...`
+      document.querySelectorAll('.dialog-header-count').forEach(function(el) {
+        el.innerHTML = `${count} users online now...`
+      })
     })
 
     socket.on('message_history_request_response', function(msgs) {
@@ -120,8 +132,9 @@
 <body>
 <div class="dialog">
   <div class="dialog-header">
+    <img class="dialog-header-icon" src="/favicon-32x32.png" />
     <span class="dialog-header-text">
-      What if They Don't Have Eyes? <span class="dialog-header-count"></span>
+      What if They Don't Have Eyes? <span class="dialog-header-count dialog-header-count-desktop"></span>
     </span>
     <div class="dialog-header-button-container">
       <button class="dialog-button dialog-button-header">
@@ -148,6 +161,7 @@
     <span class="dialog-subheader-fake-button">
       Go
     </span>
+    <span class="dialog-subheader-fake-button dialog-header-count dialog-header-count-mobile"></span>
     <span class="dialog-subheader-fake-button dialog-subheader-fake-button-responsive">
       Bookmarks
     </span>
@@ -160,10 +174,12 @@
   </div>
   <div class="dialog-subheader dialog-subheader-links">
     <div class="dialog-subheader">
-      <button class="dialog-button">
+      <button class="dialog-button dialog-button-link-to-mary">
         Mary
       </button>
-      <button class="dialog-button">
+    </div>
+    <div class="dialog-subheader">
+      <button class="dialog-button dialog-button-link-to-steven">
         Steven
       </button>
     </div>
@@ -241,6 +257,14 @@
         document.querySelector('.dialog-body-about').classList.toggle('dialog-body-active');
         document.querySelector('.dialog-button-text-about').classList.toggle('dialog-button-text-active');
         document.querySelector('.dialog-button-text-chat').classList.toggle('dialog-button-text-active');
+    });
+
+    document.querySelector('.dialog-button-link-to-mary').addEventListener('click', function() {
+      window.location.href = 'https://www.marypedicini.com/'
+    });
+
+    document.querySelector('.dialog-button-link-to-steven').addEventListener('click', function() {
+      window.location.href = 'https://steven-he.com/'
     });
   </script>
 </div>

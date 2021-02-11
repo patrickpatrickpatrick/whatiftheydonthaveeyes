@@ -18,11 +18,11 @@ io.on('connection', (socket) => {
   socket.on('disconnect', () => console.log('goodbye'));
 
   socket.on('message_history_request', ({ last_msg_id, uuid }) => {
-	const channel = client.guilds.cache.get('514879056433381409').channels.cache.get('514879057868095489');
-	channel.messages.fetch({ limit: 20, ...(last_msg_id ? { before: last_msg_id } : {})}, false, false)
+	const channel = client.guilds.cache.get('809539602515623957').channels.cache.get('809539602955763734');
+	channel.messages.fetch({ limit: 50, ...(last_msg_id ? { before: last_msg_id } : {})}, false, false)
 	.then(messages => { io.emit('message_history_request_response', { messages: messages.map(msg => messageToMsg(msg)), uuid }) })
 	.catch(console.error)
-	console.log(socket);
+		console.log(socket);
 	});
 });
 

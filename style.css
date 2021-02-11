@@ -12,11 +12,15 @@ body { position:absolute; top:0; bottom:0; right:0; left:0; }
   bottom: 0;
 }
 
+.simplebar-scrollbar.simplebar-visible:before {
+  opacity: 1;
+}
+
 .simplebar-scrollbar::before {
   width: 18px;
   left: 0;
   border-radius: 0px;
-  background: rgb(192, 192, 192);
+  background: #f1ebdd;
   border-top: 2px white solid;
   border-left: 2px white solid;
   border-right: 2px grey solid;
@@ -29,12 +33,12 @@ body { position:absolute; top:0; bottom:0; right:0; left:0; }
 
 /* Track */
 .simplebar-track {
-  background: rgb(222, 222, 222);
+  background: darkgrey;
 }
 
 /* Handle */
 ::-webkit-scrollbar-thumb {
-  background: rgb(192, 192, 192);
+  background: #f1ebdd;
   border-top: 2px white solid;
   border-left: 2px white solid;
   border-right: 2px grey solid;
@@ -53,7 +57,7 @@ body { position:absolute; top:0; bottom:0; right:0; left:0; }
   border-right: 2px solid grey;
   font-family: 'Windows', sans-serif;
   height: 100%;
-  background-color: rgb(192, 192, 192);
+  background-color: #f1ebdd;
 }
 
 .dialog-header {
@@ -89,7 +93,7 @@ body { position:absolute; top:0; bottom:0; right:0; left:0; }
 }
 
 .dialog-button {
-  background-color: rgb(192, 192, 192);
+  background-color: #f1ebdd;
   border-radius: 2px;
   border-width: 2px;
   border-color: black;
@@ -115,10 +119,6 @@ body { position:absolute; top:0; bottom:0; right:0; left:0; }
 
 .dialog-subheader .dialog-button:nth-of-type(1) {
   margin-left: 10px;
-}
-
-.dialog-subheader .dialog-subheader:nth-of-type(1) {
-  margin-right: 30px;
 }
 
 .dialog-subheader-top {
@@ -259,7 +259,15 @@ body { position:absolute; top:0; bottom:0; right:0; left:0; }
   padding: 10px;
 }
 
-@media only screen and (max-width: 600px) {
+.dialog-header-icon {
+  padding-right: 10px;
+}
+
+.dialog-header-count-mobile {
+  display: none;
+}
+
+@media only screen and (max-width: 900px) {
   .dialog-subheader-fake-button-responsive {
     display: none;
   }
@@ -268,8 +276,17 @@ body { position:absolute; top:0; bottom:0; right:0; left:0; }
     margin-right: 0px;
   }
 
+  .dialog-header-count-desktop {
+    display: none;
+  }
+
+  .dialog-header-count-mobile {
+    display: block;
+  }
+
   .chat-message {
     width: 100%;
+    margin-right: 10px;
   }
 
   .dialog-button {

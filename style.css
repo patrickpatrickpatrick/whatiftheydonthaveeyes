@@ -9,18 +9,22 @@ body { position:absolute; top:0; bottom:0; right:0; left:0; }
 
 
 .simplebar-scrollbar::before {
-  background-color: blue;
+  width: 18px;
+  left: 0;
+  border-radius: 0px;
+  background: rgb(192, 192, 192);
+  border-top: 2px white solid;
+  border-left: 2px white solid;
+  border-right: 2px grey solid;
+  border-bottom: 2px grey solid;
 }
 
-/* width */
-::-webkit-scrollbar {
-  -webkit-appearance: none;
+.simplebar-track.simplebar-vertical {
   width: 20px;
-  -webkit-overflow-scrolling: auto
 }
 
 /* Track */
-::-webkit-scrollbar-track {
+.simplebar-track {
   background: rgb(222, 222, 222);
 }
 
@@ -169,6 +173,7 @@ body { position:absolute; top:0; bottom:0; right:0; left:0; }
   overflow-y: scroll;
   border: 2px solid black;
   background: linear-gradient(90deg, rgba(255,0,0,1) 0%, rgba(255,154,0,1) 10%, rgba(208,222,33,1) 20%, rgba(79,220,74,1) 30%, rgba(63,218,216,1) 40%, rgba(47,201,226,1) 50%, rgba(28,127,238,1) 60%, rgba(95,21,242,1) 70%, rgba(186,12,248,1) 80%, rgba(251,7,217,1) 90%, rgba(255,0,0,1) 100%);
+  width: calc(100% - 40px);
 }
 
 .dialog-body-content {

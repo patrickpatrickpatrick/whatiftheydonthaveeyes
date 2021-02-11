@@ -1,11 +1,7 @@
 <!DOCTYPE html>
 <head>
-  <title>Pusher Test</title>
-  <link
-    rel="stylesheet"
-    href="https://unpkg.com/simplebar@latest/dist/simplebar.css"
-  />
-  <script src="https://unpkg.com/simplebar@latest/dist/simplebar.min.js"></script>
+  <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=yes" />
+  <title>What if They Don't Have Eyes?</title>
   <script src="/socket.io/socket.io.js"></script>
   <script>
     function uuidv4() {
@@ -36,7 +32,7 @@
             ${msg.content}
             ${msg.attachments.map(attachment => {
               return `
-                <img src=${attachment} />
+                <img class="chat-message-content-img" src=${attachment} />
               `
             })}
           </span>
@@ -51,14 +47,25 @@
       document.querySelector('.dialog-body-content').appendChild(el);
     });
 
-    socket.on('message_history_request_response', function(msgs) {
-      if (msgs.uuid === uuid) {
-        msgs.messages.forEach((msg) => {
+    function displayHistorySensibly() {
+      if (window.msgs.length !== 0) {
+        const displayMsgs = window.msgs.slice(-5);
+        window.msgs = window.msgs.slice(0, -5);
+
+        displayMsgs.forEach((msg) => {
           const el = createMessage(msg);
           document.querySelector('.dialog-body-content').prepend(el);
         });
-        document.querySelector('.dialog-body-content').scrollTop = '0px';
-        document.querySelector('.dialog-body-content').prepend(document.querySelector('.chat-message-requester'));
+        document.querySelector('.dialog-body-content').scrollTop = document.querySelector('.dialog-body-content').offsetHeight;
+      } else {
+        console.log('outta messages woops')
+      }
+    }
+
+    socket.on('message_history_request_response', function(msgs) {
+      if (msgs.uuid === uuid) {
+        window.msgs = msgs.messages;
+        displayHistorySensibly();
       }
     });
   </script>
@@ -94,13 +101,13 @@
     <span class="dialog-subheader-fake-button">
       Go
     </span>
-    <span class="dialog-subheader-fake-button">
+    <span class="dialog-subheader-fake-button dialog-subheader-fake-button-responsive">
       Bookmarks
     </span>
-    <span class="dialog-subheader-fake-button">
+    <span class="dialog-subheader-fake-button dialog-subheader-fake-button-responsive">
       Options
     </span>
-    <span class="dialog-subheader-fake-button">
+    <span class="dialog-subheader-fake-button dialog-subheader-fake-button-responsive">
       Directory
     </span>
   </div>
@@ -131,22 +138,16 @@
   </div>
   <div class="dialog-body">
     <div class="dialog-body-content">
-      <div class="chat-message-container">
-        <button class="chat-message-requester">
-          request more messages...
-        </button>
-      </div>
+      <div class="chat-message-container"></div>
     </div>
   </div>
   <script type="text/javascript">
     socket.emit("message_history_request", { uuid: uuid });
-    document.querySelector('.chat-message-requester').addEventListener('click', function () {
-        var topMsg = document.querySelector('.chat-message');
-        socket.emit("message_history_request", {
-          last_msg_id: topMsg.dataset.id,
-          uuid: uuid
-        });
+    document.querySelector('.dialog-body-content').addEventListener('scroll', function(e) {
+          if (e.target.scrollTop === 0) {
+            displayHistorySensibly();
+          }
       }
-    );
+    )
   </script>
 </body>

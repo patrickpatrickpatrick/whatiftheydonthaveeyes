@@ -39,10 +39,6 @@
   outline: 10px blueviolet solid;
 }
 
-.dialog-body {
-
-}
-
 .dialog-header {
   align-items: center;
   background: linear-gradient(90deg, rgba(2,0,36,1) 0%, rgba(32,89,236,1) 0%, rgba(0,212,255,1) 100%);
@@ -213,4 +209,18 @@
 
 .chat-message-break {
   width: calc(50% - 73px);
+}
+
+@media only screen and (max-width: 600px) {
+  .dialog-subheader-fake-button-responsive {
+    display: none;
+  }
+
+  .dialog-subheader .dialog-subheader:nth-of-type(1) {
+    margin-right: 0px;
+  }
+
+  .chat-message {
+    width: 100%;
+  }
 }

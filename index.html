@@ -20,6 +20,18 @@
       var date = new Date(msg.datestamp);
       var user = 'patrickpatrickpatrickpatrick';
 
+
+      function getYTID (link) {
+        var url = new URL(link);
+        var query = new URLSearchParams(url.search);
+        return query.get('v');
+      }
+
+      function getVIMEOID (link) {
+        var url = new URL(link);
+        return url.pathname.slice(1);
+      }
+
       el.className = `chat-message-container ${ user === msg.user ? 'chat-message-container-user-primary' : '' }`;
       el.innerHTML = `
         <div class="chat-message ${ user === msg.user ? 'chat-message-user-primary' : '' }" data-id=${msg.id} >
@@ -29,8 +41,10 @@
           <div class="chat-message-content">
             ${
               (msg.content.search('youtube') > 1 ? `
-                <iframe width="560" height="315" src="https://www.youtube.com/embed/${msg.content.split('/').filter(x => x.length).slice(-1)[0].split('watch?v=')[1]}" frameborder="0" allow="autoplay; encrypted-media" allowfullscreen></iframe>
-              ` : msg.content)
+                <iframe width="560" height="315" src="https://www.youtube.com/embed/${getYTID(msg.content)}" frameborder="0" allow="autoplay; encrypted-media" allowfullscreen></iframe>
+              ` : (msg.content.search('vimeo') > 1 ? `
+              <iframe title="vimeo-player" src="https://player.vimeo.com/video/${getVIMEOID(msg.content)}" width="640" height="360" frameborder="0" allowfullscreen></iframe>
+              ` : msg.content))
             }
             ${msg.attachments.map(attachment => {
               return `

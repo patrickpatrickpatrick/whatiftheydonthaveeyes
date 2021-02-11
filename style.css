@@ -176,12 +176,12 @@
   border: 2px grey solid;
 }
 
-.chat-message-container:nth-of-type(2n) {
+.chat-message-container.chat-message-container-user-primary {
   flex-direction: row-reverse;
   margin-right: 30px;
 }
 
-.chat-message-container:nth-of-type(2n) .chat-message {
+.chat-message.chat-message-user-primary {
   background: darkgreen;
   color: white;
   margin-left: 0px;
@@ -194,6 +194,10 @@
 .chat-message-content {
   padding-top: 20px;
   font-size: 18px;
+}
+
+.chat-message-content-img {
+  max-width: 100%;
 }
 
 .chat-message-container {

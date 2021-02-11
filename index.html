@@ -16,26 +16,28 @@
     var el;
 
     function createMessage(msg) {
-      console.log(msg)
       var el = document.createElement('DIV');
       var date = new Date(msg.datestamp);
+      var user = 'patrickpatrickpatrickpatrick';
 
-      el.className = 'chat-message-container';
+      el.className = `chat-message-container ${ user === msg.user ? 'chat-message-container-user-primary' : '' }`;
       el.innerHTML = `
-        <div class="chat-message" data-id=${msg.id} >
+        <div class="chat-message ${ user === msg.user ? 'chat-message-user-primary' : '' }" data-id=${msg.id} >
           <span class="chat-message-user">
             ${msg.user} | ${date.toISOString().split('T')[0]} ${date.toISOString().split('T')[1].slice(0, -5)}
           </span>
-          <br>
-          <br>
-          <span class="chat-message-content">
-            ${msg.content}
+          <div class="chat-message-content">
+            ${
+              (msg.content.search('youtube') > 1 ? `
+                <iframe width="560" height="315" src="https://www.youtube.com/embed/${msg.content.split('/').filter(x => x.length).slice(-1)[0].split('watch?v=')[1]}" frameborder="0" allow="autoplay; encrypted-media" allowfullscreen></iframe>
+              ` : msg.content)
+            }
             ${msg.attachments.map(attachment => {
               return `
                 <img class="chat-message-content-img" src=${attachment} />
               `
             })}
-          </span>
+          </div>
         </div>
       `;
 
@@ -47,31 +49,48 @@
       document.querySelector('.dialog-body-content').appendChild(el);
     });
 
-    function displayHistorySensibly() {
+    function displayHistorySensibly(scrolledToTop) {
       if (window.msgs.length !== 0) {
         const displayMsgs = window.msgs.slice(-5);
+
+        console.log(displayMsgs)
+
         window.msgs = window.msgs.slice(0, -5);
 
-        displayMsgs.forEach((msg) => {
-          const el = createMessage(msg);
-          document.querySelector('.dialog-body-content').prepend(el);
-        });
-        document.querySelector('.dialog-body-content').scrollTop = document.querySelector('.dialog-body-content').offsetHeight;
+        if (!scrolledToTop) {
+          displayMsgs.forEach((msg) => {
+            const el = createMessage(msg);
+            document.querySelector('.dialog-body-content').appendChild(el);
+          });
+          document.querySelector('.dialog-body-content').scrollTop = document.querySelector('.dialog-body-content').scrollHeight;
+        } else {
+          var previousHeight = document.querySelector('.dialog-body-content').scrollHeight;
+          displayMsgs.reverse().forEach((msg) => {
+            const el = createMessage(msg);
+            document.querySelector('.dialog-body-content').prepend(el);
+          });
+          document.querySelector('.dialog-body-content').scrollTop = document.querySelector('.dialog-body-content').scrollHeight - previousHeight;
+        }
       } else {
-        console.log('outta messages woops')
+        socket.emit("message_history_request", { uuid: uuid, last_msg_id: document.querySelector('.chat-message').dataset.id });
       }
     }
 
     socket.on('message_history_request_response', function(msgs) {
       if (msgs.uuid === uuid) {
-        window.msgs = msgs.messages;
-        displayHistorySensibly();
+        window.msgs = msgs.messages.reverse();
+        if (document.querySelectorAll('.chat-message').length > 1) {
+          displayHistorySensibly(true);
+        } else {
+          displayHistorySensibly();
+        }
       }
     });
   </script>
   <link rel="stylesheet" href="/style.css" />
 </head>
-<body class="dialog">
+<body>
+<div class="dialog">
   <div class="dialog-header">
     <span class="dialog-header-text">
       What if They Don't Have Eyes?
@@ -145,9 +164,10 @@
     socket.emit("message_history_request", { uuid: uuid });
     document.querySelector('.dialog-body-content').addEventListener('scroll', function(e) {
           if (e.target.scrollTop === 0) {
-            displayHistorySensibly();
+            displayHistorySensibly(true);
           }
       }
     )
   </script>
+</div>
 </body>

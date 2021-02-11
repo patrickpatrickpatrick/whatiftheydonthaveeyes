@@ -182,8 +182,9 @@
     </div>
   </div>
   <div class="dialog-body">
-    <div class="dialog-body-content" data-simplebar>
-      <div class="chat-message-container"></div>
+      <div class="dialog-body-content-container">
+        <div class="dialog-body-content"></div>
+      </div>
     </div>
   </div>
   <script type="text/javascript">
@@ -195,11 +196,13 @@
       }
     )
     document.querySelector('.dialog-body-content').style.height = `${document.querySelector('.dialog').offsetHeight - 240 - (window.mobileCheck ? 30 : 0 )}px`
+    document.querySelector('.dialog-body').style.height = `${document.querySelector('.dialog').offsetHeight - 240 - (window.mobileCheck ? 30 : 0 )}px`
     window.addEventListener('resize', function() {
       document.querySelector('.dialog-body-content').style.height = `${document.querySelector('.dialog').offsetHeight - 240 - (window.mobileCheck ? 30 : 0 )}px`
+      document.querySelector('.dialog-body').style.height = `${document.querySelector('.dialog').offsetHeight - 240 - (window.mobileCheck ? 30 : 0 )}px`
     });
 
-    new SimpleBar(document.querySelector('.dialog-body-content'), { autoHide: false });
+    new SimpleBar(document.querySelector('.dialog-body'), { autoHide: false });
 
   </script>
 </div>

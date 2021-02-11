@@ -4,6 +4,9 @@
       url("/fonts/w95fa.woff2") format("woff2");
 }
 
+html { height:100%; background-color: purple; }
+body { position:absolute; top:0; bottom:0; right:0; left:0; }
+
 /* width */
 ::-webkit-scrollbar {
   width: 20px;
@@ -34,9 +37,8 @@
   border-bottom: 2px solid grey;
   border-right: 2px solid grey;
   font-family: 'Windows', sans-serif;
-  height: 100vh;
+  height: 100%;
   background-color: rgb(192, 192, 192);
-  outline: 10px blueviolet solid;
 }
 
 .dialog-header {

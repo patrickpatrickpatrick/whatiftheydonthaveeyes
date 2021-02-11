@@ -172,6 +172,12 @@
         SW11NDOWS
       </button>
     </div>
+    <div class="dialog-subheader">
+      <button class="dialog-button dialog-button-change-about">
+        <span class="dialog-button-text-about dialog-button-text-active">About</span>
+        <span class="dialog-button-text-chat">Chat</span>
+      </button>
+    </div>
   </div>
   <div class="dialog-subheader">
     <div class="dialog-subheader-fake-form">
@@ -183,16 +189,36 @@
       </span>
     </div>
   </div>
-  <div class="dialog-body">
-      <div class="dialog-body-content-container">
-        <div class="dialog-body-content"></div>
+  <div class="dialog-body dialog-body-active dialog-body-chat">
+    <div class="dialog-body-content-container">
+      <div class="dialog-body-content">
       </div>
     </div>
   </div>
+  <div class="dialog-body dialog-body-about">
+    <div class="dialog-body-content-container">
+      <div class="dialog-body-content">
+        <div class="about-content">
+          Title: What if they don’t have eyes?. Duration: 72 hours. Materials: virtual messaging, mixed media.
+          <br><br>
+          Address: Fraser Court, Surrey Lane. Brick Structure between buildings.
+          <br><br>
+          “What if they don’t have eyes?” is a conversational exquisite corpse, existing as both a physical intervention in a residential landscape and a virtual exchange of ideas. Inspired by Charles Simmond’s miniature ruined cities of the 1970s -- tiny clay dwellings nestled into the chipped brick and crumbling hollows of New York’s old buildings --  “What if they don’t have eyes?” will present a miniature wreck. On the 12th of February, a diminutive spaceship will crashland in the center of an oddly ancient-looking brick structure located within a council estate in SW11, Battersea, London, Earth. On discovering this landing site, a viewer will notice a scrap of undamaged alien technology, a scannable QR code that will allow viewers to peer into the final transmissions of a wandering alien life form with the human who first discovered it.
+          <br><br>
+          For a 72 hour period from the 12th-14th of February, the artists Mary Pedicini and Steven He will assume new identities; Mary as the alien passenger of the ruined ship, and Steven as a human adolescent with the technological wherewithal to make contact. For the duration of the project, the artists will converse only through the designated platform, responding to each other with text, image, gif or video. By a happy coincidence, the alien’s home planet follows precisely the same solar cycle as does our Earth, so communications will cease at night as both human and alien sleep. Sadly, our alien belongs to a short-lived species, and at the end of 72 hours its time will be up.
+          <br><br>
+          The project aims to be playful, cheeky and uplifting, an enchanting surprise to any who come upon it unexpectedly. Simultaneously, it will allow the artists a platform in which to explore the challenges of communication within restrictive limits, to make connections across object, word and image, and to speculate on non-human psychologies.
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
   <script type="text/javascript">
     socket.emit("message_history_request", { uuid: uuid });
 
-    var scroll = new SimpleBar(document.querySelector('.dialog-body'), { autoHide: false });
+    var otherScroll = new SimpleBar(document.querySelector('.dialog-body-about'), { autoHide: false });
+
+    var scroll = new SimpleBar(document.querySelector('.dialog-body-chat'), { autoHide: false });
     var scrollEl = scroll.getScrollElement();
 
     scrollEl.addEventListener('scroll', function(e) {
@@ -201,11 +227,20 @@
           }
       }
     )
-    document.querySelector('.dialog-body-content').style.height = `${document.querySelector('.dialog').offsetHeight - 240 - (window.mobileCheck ? 30 : 0 )}px`
-    document.querySelector('.dialog-body').style.height = `${document.querySelector('.dialog').offsetHeight - 240 - (window.mobileCheck ? 30 : 0 )}px`
+    document.querySelector('.dialog-body-content').style.height = `${document.querySelector('.dialog').offsetHeight - 240 - (window.mobileCheck ? 30 : 0 )}px`;
+    document.querySelector('.dialog-body').style.height = `${document.querySelector('.dialog').offsetHeight - 240 - (window.mobileCheck ? 30 : 0 )}px`;
+    document.querySelector('.dialog-body-about').style.height = `${document.querySelector('.dialog').offsetHeight - 240 - (window.mobileCheck ? 30 : 0 )}px`;
     window.addEventListener('resize', function() {
-      document.querySelector('.dialog-body-content').style.height = `${document.querySelector('.dialog').offsetHeight - 240 - (window.mobileCheck ? 30 : 0 )}px`
-      document.querySelector('.dialog-body').style.height = `${document.querySelector('.dialog').offsetHeight - 240 - (window.mobileCheck ? 30 : 0 )}px`
+      document.querySelector('.dialog-body-content').style.height = `${document.querySelector('.dialog').offsetHeight - 240 - (window.mobileCheck ? 30 : 0 )}px`;
+      document.querySelector('.dialog-body').style.height = `${document.querySelector('.dialog').offsetHeight - 240 - (window.mobileCheck ? 30 : 0 )}px`;
+      document.querySelector('.dialog-body-about').style.height = `${document.querySelector('.dialog').offsetHeight - 240 - (window.mobileCheck ? 30 : 0 )}px`;
+    });
+
+    document.querySelector('.dialog-button-change-about').addEventListener('click', function(e) {
+        document.querySelector('.dialog-body-chat').classList.toggle('dialog-body-active');
+        document.querySelector('.dialog-body-about').classList.toggle('dialog-body-active');
+        document.querySelector('.dialog-button-text-about').classList.toggle('dialog-button-text-active');
+        document.querySelector('.dialog-button-text-chat').classList.toggle('dialog-button-text-active');
     });
   </script>
 </div>

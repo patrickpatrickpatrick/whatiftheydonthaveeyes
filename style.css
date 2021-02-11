@@ -7,9 +7,15 @@
 html { height:100%; background-color: purple; }
 body { position:absolute; top:0; bottom:0; right:0; left:0; }
 
+
+.simplebar-scrollbar::before {
+  background-color: red;
+}
+
 /* width */
 ::-webkit-scrollbar {
   width: 20px;
+  -webkit-overflow-scrolling: auto
 }
 
 /* Track */
@@ -159,7 +165,7 @@ body { position:absolute; top:0; bottom:0; right:0; left:0; }
 }
 
 .dialog-body-content {
-  overflow-y: scroll;
+  /*overflow-y: scroll;*/
   width: calc(100% - 40px);
   /*height: calc((var(--vh, 1vh) * 100) - 340px);*/
   margin: 0px 20px 20px 20px;

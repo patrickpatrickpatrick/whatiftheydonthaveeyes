@@ -3,6 +3,11 @@
   <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=yes" />
   <title>What if They Don't Have Eyes?</title>
   <script src="/socket.io/socket.io.js"></script>
+  <link
+    rel="stylesheet"
+    href="https://unpkg.com/simplebar@latest/dist/simplebar.css"
+  />
+  <script src="https://unpkg.com/simplebar@latest/dist/simplebar.min.js"></script>
   <script type="text/javascript">
     window.mobileCheck = function() {
       let check = false;
@@ -177,7 +182,7 @@
     </div>
   </div>
   <div class="dialog-body">
-    <div class="dialog-body-content">
+    <div class="dialog-body-content" data-simplebar>
       <div class="chat-message-container"></div>
     </div>
   </div>
@@ -193,6 +198,9 @@
     window.addEventListener('resize', function() {
       document.querySelector('.dialog-body-content').style.height = `${document.querySelector('.dialog').offsetHeight - 240 - (window.mobileCheck ? 30 : 0 )}px`
     });
+
+    new SimpleBar(document.querySelector('.dialog-body-content'), { autoHide: false });
+
   </script>
 </div>
 </body>

@@ -64,9 +64,7 @@
                 <iframe width="100%" height="315" src="https://www.youtube.com/embed/${getYTID(msg.content)}" frameborder="0" allow="autoplay; encrypted-media" allowfullscreen></iframe>
               ` : (msg.content.search('vimeo') > 1 ? `
               <iframe title="vimeo-player" src="https://player.vimeo.com/video/${getVIMEOID(msg.content)}" width="100%" height="200" frameborder="0" allowfullscreen></iframe>
-              ` : (msg.content.search('tenor') > 1 ? `
-                  <div class="tenor-gif-embed" data-postid="${getTenorID(msg.content)}" data-share-method="host" data-width="100%" data-aspect-ratio="1.9227799227799227"><a href="https://tenor.com/view/love-you-awww-cute-gif-${getTenorID(msg.content)}">Love You GIF</a> from <a href="https://tenor.com/search/love-gifs">Love GIFs</a></div>\<script type="text/javascript" async src="https://tenor.com/embed.js">\<\/script\>`
-               : msg.content)))
+              ` : msg.content))
             }
             ${msg.attachments.map(attachment => {
               return `
@@ -132,7 +130,7 @@
   <link rel="stylesheet" href="/style.css" />
 </head>
 <body>
-<div class="dialog">
+<div class="dialog shadow-border">
   <div class="dialog-header">
     <img class="dialog-header-icon" src="/favicon-32x32.png" />
     <span class="dialog-header-text">
@@ -142,8 +140,8 @@
       <button class="dialog-button dialog-button-header">
         <span class="dialog-button-header-text">_</span>
       </button>
-      <button class="dialog-button dialog-button-header">
-        <span class="dialog-button-header-text dialog-button-header-text-max">□</span>
+      <button class="dialog-button dialog-button-header dialog-button-header-max">
+        <div class="dialog-button-maximise-icon"></div>
       </button>
       <button class="dialog-button dialog-button-header">
         <span class="dialog-button-header-text">×</span>
@@ -186,9 +184,10 @@
       </button>
     </div>
     <div class="dialog-subheader">
-      <button class="dialog-button" style="filter: brightness(0.4);
-    color: grey;">
-        SW11NDOWS
+      <button class="dialog-button dialog-button-disabled">
+        <span class='dialog-button-text dialog-button-text-disabled'>
+          SW11NDOWS
+        </span>
       </button>
     </div>
     <div class="dialog-subheader">
@@ -208,13 +207,13 @@
       </span>
     </div>
   </div>
-  <div class="dialog-body dialog-body-active dialog-body-chat">
+  <div class="dialog-body shadow-border dialog-body-active dialog-body-chat">
     <div class="dialog-body-content-container">
       <div class="dialog-body-content">
       </div>
     </div>
   </div>
-  <div class="dialog-body dialog-body-about">
+  <div class="dialog-body shadow-border dialog-body-about">
     <div class="dialog-body-content-container">
       <div class="dialog-body-content">
         <div class="about-content">

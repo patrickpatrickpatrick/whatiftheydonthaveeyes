@@ -5,7 +5,16 @@
 }
 
 html { height:100%; background-color: purple; }
-body { position:absolute; top:0; bottom:0; right:0; left:0; }
+body {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  right:0;
+  left:0;
+}
 
 .simplebar-track.simplebar-vertical .simplebar-scrollbar:before {
   top: 0;
@@ -36,38 +45,18 @@ body { position:absolute; top:0; bottom:0; right:0; left:0; }
   background: darkgrey;
 }
 
-/* Handle */
-::-webkit-scrollbar-thumb {
-  background: #f1ebdd;
-  border-top: 2px white solid;
-  border-left: 2px white solid;
-  border-right: 2px grey solid;
-  border-bottom: 2px grey solid;
-}
-
-/* Handle on hover */
-::-webkit-scrollbar-thumb:hover {
-  background: #555;
-}
-
-.dialog {
+.shadow-border {
   border-top: 2px solid #fff;
   border-left: 2px solid #fff;
   border-bottom: 2px solid grey;
   border-right: 2px solid grey;
+}
+
+.dialog {
   font-family: 'Windows', sans-serif;
   height: 100%;
   background-color: #f1ebdd;
-}
-
-.dialog-header {
-  align-items: center;
-  background: linear-gradient(90deg, rgba(2,0,36,1) 0%, rgba(32,89,236,1) 0%, rgba(0,212,255,1) 100%);
-  color: #fff;
-  display: flex;
-  font-size: 20px;
-  height: 35px;
-  padding: 5px 20px;
+  flex-basis: 1000px;
 }
 
 .dialog-header {
@@ -153,6 +142,18 @@ body { position:absolute; top:0; bottom:0; right:0; left:0; }
   flex-grow: 8;
 }
 
+.dialog-header-button {
+  position: relative;
+}
+
+.dialog-button-maximise-icon {
+  padding: 6px;
+  position: absolute;
+  top: 4px;
+  left: 4px;
+  border: 3px solid black;
+}
+
 .dialog-header-button-container {
   display: flex;
   position: absolute;
@@ -175,10 +176,6 @@ body { position:absolute; top:0; bottom:0; right:0; left:0; }
 
 .dialog-body {
   overflow-y: scroll;
-  border-top: 2px white solid;
-  border-left: 2px white solid;
-  border-right: 2px grey solid;
-  border-bottom: 2px grey solid;
   background: linear-gradient(90deg, rgba(255,0,0,1) 0%, rgba(255,154,0,1) 10%, rgba(208,222,33,1) 20%, rgba(79,220,74,1) 30%, rgba(63,218,216,1) 40%, rgba(47,201,226,1) 50%, rgba(28,127,238,1) 60%, rgba(95,21,242,1) 70%, rgba(186,12,248,1) 80%, rgba(251,7,217,1) 90%, rgba(255,0,0,1) 100%);
   margin: auto;
   display: none;
@@ -222,6 +219,7 @@ body { position:absolute; top:0; bottom:0; right:0; left:0; }
 
 .chat-message-content-img {
   max-width: 100%;
+  max-height: 400px;
 }
 
 .chat-message-container {
@@ -267,6 +265,15 @@ body { position:absolute; top:0; bottom:0; right:0; left:0; }
   display: none;
 }
 
+.dialog-button-disabled {
+  pointer-events: none;
+}
+
+.dialog-button-text-disabled {
+  color: grey;
+  text-shadow: 1px 1px white;
+}
+
 @media only screen and (max-width: 900px) {
   .dialog-subheader-fake-button-responsive {
     display: none;
@@ -282,6 +289,10 @@ body { position:absolute; top:0; bottom:0; right:0; left:0; }
 
   .dialog-header-count-mobile {
     display: block;
+  }
+
+  .dialog-button-header-text-max {
+    font-size: 30px;
   }
 
   .chat-message {

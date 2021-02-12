@@ -106,7 +106,9 @@
           scrollEl.scrollTop = document.querySelector('.dialog-body-content').scrollHeight - previousHeight;
         }
       } else {
+        if (document.querySelector('.chat-message')) {
         socket.emit("message_history_request", { uuid: uuid, last_msg_id: document.querySelector('.chat-message').dataset.id });
+        }
       }
     }
 

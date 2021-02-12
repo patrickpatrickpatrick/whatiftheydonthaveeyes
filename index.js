@@ -18,7 +18,7 @@ io.on('connection', (socket) => {
   socket.on('disconnect', () => console.log('goodbye'));
 
   socket.on('message_history_request', ({ last_msg_id, uuid }) => {
-	const channel = client.guilds.cache.get('809539602515623957').channels.cache.get('809539602955763734');
+	const channel = client.guilds.cache.get('809539602515623957').channels.cache.get('809742025250570270');
 	channel.messages.fetch({ limit: 50, ...(last_msg_id ? { before: last_msg_id } : {})}, false, false)
 	.then(messages => { io.emit('message_history_request_response', { messages: messages.map(msg => messageToMsg(msg)), uuid }) })
 	.catch(console.error)

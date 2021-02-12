@@ -67,7 +67,7 @@ body {
   font-family: 'Windows', sans-serif;
   font-size: 18px;
   height: 30px;
-  padding: 5px 20px;
+  padding: 5px 5px;
   position: relative;
 }
 
@@ -79,7 +79,14 @@ body {
 
 .dialog-subheader-fake-button {
   padding: 10px;
+  pointer-events: none;
+  position: relative;
 }
+
+.dialog-subheader-fake-button-underline {
+  text-decoration: underline;
+}
+
 
 .dialog-button {
   background-color: #f1ebdd;
@@ -100,6 +107,7 @@ body {
   width: 30px;
   box-shadow: 0px 0px;
   position: relative;
+  pointer-events: none;
 }
 
 .dialog-subheader .dialog-button:nth-of-type(1) {

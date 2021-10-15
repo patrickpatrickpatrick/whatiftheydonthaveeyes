@@ -3,6 +3,8 @@
   <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=yes" />
   <title>What if They Don't Have Eyes?</title>
   <script src="/socket.io/socket.io.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/intersection-observer@0.7.0/intersection-observer.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/vanilla-lazyload@17.3.1/dist/lazyload.min.js"></script>
   <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
   <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
   <link
@@ -68,7 +70,7 @@
             }
             ${msg.attachments.map(attachment => {
               return `
-                <img class="chat-message-content-img" src=${attachment} />
+                <img src="/loading.gif" class="lazy chat-message-content-img" data-src=${attachment} />
               `
             })}
           </div>
@@ -81,6 +83,7 @@
     socket.on('message', function(msg) {
       const el = createMessage(msg);
       document.querySelector('.dialog-body-content').appendChild(el);
+      lazyLoadInstance.update();
     });
 
     function displayHistorySensibly(scrolledToTop) {
@@ -100,6 +103,7 @@
           displayMsgs.reverse().forEach((msg) => {
             const el = createMessage(msg);
             document.querySelector('.dialog-body-content').prepend(el);
+            lazyLoadInstance.update();
           });
           scrollEl.scrollTop = document.querySelector('.dialog-body-content').scrollHeight - previousHeight;
         }
@@ -169,7 +173,8 @@
       <u>O</u>ptions
     </span>
     <span class="dialog-subheader-fake-button dialog-subheader-fake-button-responsive">
-      <u>D</u>irectory
+      <u>D</u>
+      irectory
     </span>
   </div>
   <div class="dialog-subheader dialog-subheader-links">
@@ -235,7 +240,6 @@
     socket.emit("message_history_request", { uuid: uuid });
 
     var otherScroll = new SimpleBar(document.querySelector('.dialog-body-about'), { autoHide: false });
-
     var scroll = new SimpleBar(document.querySelector('.dialog-body-chat'), { autoHide: false });
     var scrollEl = scroll.getScrollElement();
 
@@ -268,6 +272,12 @@
     document.querySelector('.dialog-button-link-to-steven').addEventListener('click', function() {
       window.location.href = 'https://steven-he.com/'
     });
+
+    var lazyLoadInstance = new LazyLoad({
+      elements_selector: `.lazy`,
+      container: document.querySelector(".dialog-body-chat")
+    });
+    lazyLoadInstance.update();
   </script>
 </div>
 </body>

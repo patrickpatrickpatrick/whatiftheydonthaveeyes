@@ -22,7 +22,7 @@ io.on('connection', (socket) => {
 	channel.messages.fetch({ limit: 50, ...(last_msg_id ? { before: last_msg_id } : {})}, false, false)
 	.then(messages => { io.emit('message_history_request_response', { messages: messages.map(msg => messageToMsg(msg)), uuid }) })
 	.catch(console.error)
-		console.log(socket);
+		// console.log(socket);
 	});
 });
 
@@ -48,4 +48,4 @@ client.on('ready', () => {
 	console.log('Bot is connected...')
 });
 
-client.login(process.env.DISCORD_KEY);
+client.login(process.env.BOT_TOKEN);

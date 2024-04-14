@@ -122,6 +122,10 @@ body {
   border-bottom: 1px solid grey;
 }
 
+.dialog-button {
+  cursor: pointer;
+} 
+
 .dialog-subheader-links {
   padding-top: 10px;
   padding-bottom: 10px;
@@ -260,9 +264,9 @@ body {
 .about-content {
   background: rgba(255, 255, 255, 0.9);
   font-size: 24px;
-  width: calc(100% - 80px);
   margin: 30px auto;
-  padding: 10px;
+  padding: 30px;
+  width: calc(100% - 80px);
 }
 
 .dialog-header-icon {

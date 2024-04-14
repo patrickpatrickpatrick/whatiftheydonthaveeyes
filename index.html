@@ -34,7 +34,9 @@
     function createMessage(msg) {
       var el = document.createElement('DIV');
       var date = new Date(msg.datestamp);
-      var user = '1977-084A';
+      // var user = '1977-084A';
+      
+      var user = '.mped';
       // var user = 'patrickpatrickpatrickpatrick';
 
 
@@ -58,7 +60,7 @@
       el.innerHTML = `
         <div class="chat-message ${ user === msg.user ? 'chat-message-user-primary' : '' }" data-id=${msg.id} >
           <span class="chat-message-user">
-            ${msg.user} | ${date.toISOString().split('T')[0]} ${date.toISOString().split('T')[1].slice(0, -5)}
+            ${msg.user == '.mped' ? '1977-084A' : msg.user} | ${date.toISOString().split('T')[0]} ${date.toISOString().split('T')[1].slice(0, -5)}
           </span>
           <div class="chat-message-content">
             ${
@@ -141,13 +143,13 @@
       What if They Don't Have Eyes? <span class="dialog-header-count dialog-header-count-desktop"></span>
     </span>
     <div class="dialog-header-button-container">
-      <button class="dialog-button dialog-button-header">
+      <button tabindex="-1" class="dialog-button dialog-button-header">
         <span class="dialog-button-header-text">_</span>
       </button>
-      <button class="dialog-button dialog-button-header dialog-button-header-max">
+      <button tabindex="-1" class="dialog-button dialog-button-header dialog-button-header-max">
         <div class="dialog-button-maximise-icon"></div>
       </button>
-      <button class="dialog-button dialog-button-header">
+      <button tabindex="-1" class="dialog-button dialog-button-header">
         <span class="dialog-button-header-text">×</span>
       </button>
     </div>
@@ -189,7 +191,7 @@
       </button>
     </div>
     <div class="dialog-subheader">
-      <button class="dialog-button dialog-button-disabled">
+      <button disabled class="dialog-button dialog-button-disabled">
         <span class='dialog-button-text dialog-button-text-disabled'>
           SW11NDOWS
         </span>
